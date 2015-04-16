@@ -4,3 +4,11 @@ them into other languages. At the moment it can output to VBS, c++ (not very tes
 and Python 2.7. It is good for people learning how to construct algorithms and then
 see how they look in differnt codes. It is written in GNUstep Objective C 2.0 with
 Clang and only tested on my windows machine.
+
+
+TO INSTALL:
+Must have GNUstep and clang installed, then type:
+
+make CC=clang
+
+and hope it works

@@ -1,0 +1,86 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "addFunction:",
+	    "compile:",
+	    "endIf:",
+	    "endWhile:",
+	    "get:",
+	    "ifAdd:",
+	    "retVoid:",
+	    "newFunction:",
+	    "removeInstruction:",
+	    "retFloat:",
+	    "retInt:",
+	    "retStr:",
+	    "setFloat:",
+	    "setInt:",
+	    "setString:",
+	    "setVar:",
+	    "showFunk:",
+	    "showIns:",
+	    "whileAdd:"
+	);
+	Super = NSObject;
+    };
+    programmer = {
+	Actions = (
+	    "endWhile:",
+	    "ifAdd:",
+	    "endIf:",
+	    "whileAdd:",
+	    "setVar:",
+	    "setFloat:",
+	    "setInt:",
+	    "setString:",
+	    "addFunction:",
+	    "get:",
+	    "retFloat:",
+	    "newFunction:",
+	    "print:",
+	    "removeInstruction:",
+	    "retInt:",
+	    "retStr:",
+	    "showFunk:",
+	    "showIns:",
+	    "compile:",
+	    "retVoid:"
+	);
+	Outlets = (
+	    command,
+	    endWhileButton,
+	    ifA,
+	    endIfButton,
+	    whileA,
+	    varSetValue,
+	    varMakeName,
+	    varManName,
+	    ifB,
+	    ifEQ,
+	    ifLS,
+	    ifNEQ,
+	    ifGR,
+	    atributes,
+	    callStore,
+	    functionName,
+	    getVar,
+	    instuctionToRemove,
+	    newFunctionName,
+	    newFunctionButton,
+	    parse,
+	    printText,
+	    retFloatButton,
+	    retIntButton,
+	    retStrButton,
+	    returnVar,
+	    whileB,
+	    whileEQ,
+	    whileGR,
+	    whileLS,
+	    whileNEQ,
+	    retVoidButton
+	);
+	Super = NSObject;
+    };
+}

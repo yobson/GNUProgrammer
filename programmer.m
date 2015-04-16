@@ -7,9 +7,9 @@ James Hobson Copyright 2015
 
 #include "programmer.h"
 #include "command.h"
-#include "cppEncoding.h"
-#include "vbsEncoding.h"
-#include "pytwoEncoding.h"
+#include <EncodingClasses/cppEncoding.h>
+#include <EncodingClasses/vbsEncoding.h>
+#include <EncodingClasses/pytwoEncoding.h>
 
 @implementation programmer
 

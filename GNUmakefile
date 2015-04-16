@@ -5,18 +5,18 @@ APP_NAME = programmer
 programmer_OBJC_FILES = \
 main.m \
 programmer.m \
-cppEncoding.m \
-vbsEncoding.m \
-pytwoEncoding.m \
+EncodingClasses/cppEncoding.m \
+EncodingClasses/vbsEncoding.m \
+EncodingClasses/pytwoEncoding.m \
 command.m 
 
 
 programmer_HEADERS = \
 programmer.h \
 command.h \
-vbsEncoding.h \
-cppEncoding.h \
-pytwoEncoding.h
+EncodingClasses/vbsEncoding.h \
+EncodingClasses/cppEncoding.h \
+EncodingClasses/pytwoEncoding.h
 
 
 programmer_RESOURCE_FILES = \

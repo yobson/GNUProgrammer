@@ -92,5 +92,6 @@
 - (void) updateTableWithFunc;
 - (void) endFunc;
 - (NSString *) returnTypeOf: (NSString *) varName;
+- (void) removeVariable: (NSString *) varName;
 //- (void) writeString: (NSString *) string toFile: (NSString *) name;
 @end

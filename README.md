@@ -5,14 +5,7 @@ Clang and is only tested on my windows machine and a raspberry pi.
 
 
 ###Installation:
-Must have GNUstep and clang installed, then type:
-''' bash
-make CC=clang
-'''
-and hope it works.
+Must have GNUstep and clang installed, then type: `make CC=clang` and hope it works.
 
 ###How to run:
-Go into the programmer.app folder and On windows: open programmer.exe. On UNIX: run in terminal
-''' bash
-./programmer
-'''
+Go into the programmer.app folder and On windows: open programmer.exe. On UNIX: run in terminal: `./programmer`

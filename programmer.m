@@ -27,7 +27,7 @@ James Hobson Copyright 2015
   [self updateTable]; //update the table
   whileCount--; //remove 1 from the while counter
   [lastWhile removeLastObject]; //remove the last while loop condition stored
-  if (whileCount < 1) {[endWhileButton setEnabled:NO]; [endWhileButton setTitle:@"End While"]; }
+  if (whileCount < 1) {[endWhileButton setEnabled:NO]; [endWhileButton setTitle:@"End While"]; } //Works out what to set as the End While button text
   else {
   NSString *newText = [[NSString alloc] initWithFormat:@"End: %@", [lastWhile lastObject]];
   [endWhileButton setTitle:newText];
@@ -164,6 +164,7 @@ James Hobson Copyright 2015
 - (void) setFloat: (id)sender
 {
   if (!initialised) { [self initApp];}
+  [self removeVariable:[varMakeName stringValue]];
   Command *x = [Command alloc];
   [x setSyntax:@"var"];
   [x setIndent:indent];
@@ -183,6 +184,7 @@ James Hobson Copyright 2015
 - (void) setInt: (id)sender
 {
   if (!initialised) { [self initApp];}
+  [self removeVariable:[varMakeName stringValue]];
   Command *x = [Command alloc];
   [x setSyntax:@"var"];
   [x setIndent:indent];
@@ -201,7 +203,8 @@ James Hobson Copyright 2015
 
 - (void) setString: (id)sender
 {
-    if (!initialised) { [self initApp];}
+  if (!initialised) { [self initApp];}
+  [self removeVariable:[varMakeName stringValue]];
   Command *x = [Command alloc];
   [x setSyntax:@"var"];
   [x setIndent:indent];
@@ -380,9 +383,6 @@ if ([functionList containsObject:[newFunctionName stringValue]] ) { [command set
 }
 
 
-
-
-
 - (void) showFunk: (id)sender
 {
 	if (!initialised){ [self initApp]; }
@@ -467,17 +467,7 @@ if ([functionList containsObject:[newFunctionName stringValue]] ) { [command set
   [self updateTable];
 }
 
-- (NSString *) returnTypeOf: (NSString *) varName {
-	int x = 0;
-	NSString *returnString = [[NSString alloc] init];
-	while (x < [varNames count]) {
-		if ([[varNames objectAtIndex:x] isEqualToString:varName]) {
-			returnString = [varTypes objectAtIndex:x];
-		}
-		x++;
-	}
-	return returnString;
-}
+
 
 - (void) initApp {
 	[command setSelectable:YES];
@@ -581,6 +571,29 @@ if ([functionList containsObject:[newFunctionName stringValue]] ) { [command set
 		[display appendString:@"\n\n"];
 	}
 	[command setStringValue:display];
+}
+
+- (NSString *) returnTypeOf: (NSString *) varName {
+	int x = 0;
+	NSString *returnString = [[NSString alloc] init];
+	while (x < [varNames count]) {
+		if ([[varNames objectAtIndex:x] isEqualToString:varName]) {
+			returnString = [varTypes objectAtIndex:x];
+		}
+		x++;
+	}
+	return returnString;
+}
+
+- (void) removeVariable: (NSString *) varName{ 
+	int x = 0;
+	while (x < [varNames count]) {
+		if ([[varNames objectAtIndex:x] isEqualToString:varName]) {
+			[varNames removeObjectAtIndex:x];
+			[varTypes removeObjectAtIndex:x];
+		}
+		x++;
+	}
 }
 /*
 - (void) writeString: (NSString *) string toFile: (NSString *) name {

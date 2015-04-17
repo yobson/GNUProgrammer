@@ -57,11 +57,7 @@ only tested on raspberry pi (raspbian) all you need is GNUstep and clang. If on 
   1. open terminal and type sudo su for conveniance
   2. type `apt-get install build-essential gnustep gnustep-devel clang`
   3. navage to where you have cloned this git
-  4. type:
-  ```
-  export GNUSTEP_MAKEFILES=/usr/share/GNUstep/Makefiles
-  make CC=clang
-  ```
+  4. type: `export GNUSTEP_MAKEFILES=/usr/share/GNUstep/Makefiles && make CC=clang`
   DONE!
 
 ##How to run:

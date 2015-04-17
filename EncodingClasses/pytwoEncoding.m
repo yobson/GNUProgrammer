@@ -33,9 +33,6 @@
 + (NSMutableString *) declareWithCommand: (Command *) x {
 	NSMutableString *returnString = [[NSMutableString alloc] init];
 	[returnString appendString:[self indentCalculator:x]];
-	//if ([[x subSyntax] isEqualToString:@"int"]) { [returnString appendString:[NSString stringWithFormat:@"%@%@ = int\n", [x varName], [x varName]]]; }
-	//if ([[x subSyntax] isEqualToString:@"string"]) { [returnString appendString:[NSString stringWithFormat:@"%@%@ = str\n", [x varName], [x varName]]]; }
-	//if ([[x subSyntax] isEqualToString:@"float"]) { [returnString appendString:[NSString stringWithFormat:@"%@%@ = float\n", [x varName], [x varName]]]; }
 	return returnString;
 }
 

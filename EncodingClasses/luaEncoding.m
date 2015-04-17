@@ -1,8 +1,8 @@
 #include <Foundation/Foundation.h>
-#include "pythreeEncoding.h"
+#include "luaEncoding.h"
 #include "command.h"
 
-@implementation PY3Encoding
+@implementation luaEncoding
 
 + (NSMutableString *) indentCalculator: (Command *) x{
 	int indent = [x indent];
@@ -18,15 +18,15 @@
 + (NSMutableString *) endWithCommand: (Command *) x {
 	NSMutableString *returnString = [[NSMutableString alloc] init];
 	[returnString appendString:[self indentCalculator:x]];
-	[returnString appendString:@"\n"];
+	[returnString appendString:@"end\n"];
 	return returnString;
 }
 
 + (NSMutableString *) loopWithCommand: (Command *) x {
 	NSMutableString *returnString = [[NSMutableString alloc] init];
 	[returnString appendString:[self indentCalculator:x]];
-	if ([[x subSyntax] isEqualToString:@"while"]) { [returnString appendString:[NSString stringWithFormat:@"while %@ :\n", [x condition]]]; }
-	if ([[x subSyntax] isEqualToString:@"if"]) { [returnString appendString:[NSString stringWithFormat:@"if %@ :\n", [x condition]]]; }
+	if ([[x subSyntax] isEqualToString:@"while"]) { [returnString appendString:[NSString stringWithFormat:@"while %@ then\n", [x condition]]]; }
+	if ([[x subSyntax] isEqualToString:@"if"]) { [returnString appendString:[NSString stringWithFormat:@"if %@ then\n", [x condition]]]; }
 	return returnString;
 }
 
@@ -46,9 +46,7 @@
 + (NSMutableString *) getWithCommand: (Command *) x {
 	NSMutableString *returnString = [[NSMutableString alloc] init];
 	[returnString appendString:[self indentCalculator:x]];
-	if (![[x subSyntax] isEqualToString:@"string"]) {
-		[returnString appendString:[NSString stringWithFormat:@"%@ = %@(input())\n", [x varName], [x subSyntax]]];}
-	else { [returnString appendString:[NSString stringWithFormat:@"%@ = input()\n", [x varName]]]; }
+	[returnString appendString:[NSString stringWithFormat:@"%@ = io.read()\n", [x varName]]];
 	return returnString;
 }
 
@@ -88,7 +86,7 @@
 			int indentZ = [z indent];
 			[z setIndent:indentZ+1];
 			if (![z attribute]) { 
-				[build appendString:[PY3Encoding checkType:z]];
+				[build appendString:[luaEncoding checkType:z]];
 				y++;
 			}
 			else {
@@ -99,7 +97,7 @@
 		}
 		if ([attributes length] > 0) { [attributes deleteCharactersInRange:NSMakeRange([attributes length]-1, 1)]; }
 		z = [currentInstructionArray lastObject];
-		[returnString appendString:[NSString stringWithFormat:@"def %@(%@)\n%@\n\n", [functionList objectAtIndex:x], attributes, build]];
+		[returnString appendString:[NSString stringWithFormat:@"function %@(%@)\n%@\n\n", [functionList objectAtIndex:x], attributes, build]];
 		y=0;
 		x++;
 	}
@@ -108,14 +106,14 @@
 
 + (NSMutableString *) checkType: (Command *) x {
 	NSMutableString *display = [[NSMutableString alloc] init];
-	if ([[x syntax] isEqualToString:@"end"]) { [display appendString:[PY3Encoding endWithCommand:x]]; }
-	if ([[x syntax] isEqualToString:@"loop"]) { [display appendString:[PY3Encoding loopWithCommand:x]]; }
-	if ([[x syntax] isEqualToString:@"var"]) { [display appendString:[PY3Encoding declareWithCommand:x]]; }
-	if ([[x syntax] isEqualToString:@"set"]) { [display appendString:[PY3Encoding setVarWithCommand:x]]; }
-	if ([[x syntax] isEqualToString:@"get"]) { [display appendString:[PY3Encoding getWithCommand:x]]; }
-	if ([[x syntax] isEqualToString:@"print"]) { [display appendString:[PY3Encoding printWithCommand:x]]; }
-	if ([[x syntax] isEqualToString:@"callFunc"]) { [display appendString:[PY3Encoding callWithCommand:x]];	}
-	if ([[x syntax] isEqualToString:@"return"]) { [display appendString:[PY3Encoding returnWithCommand:x]];	}
+	if ([[x syntax] isEqualToString:@"end"]) { [display appendString:[luaEncoding endWithCommand:x]]; }
+	if ([[x syntax] isEqualToString:@"loop"]) { [display appendString:[luaEncoding loopWithCommand:x]]; }
+	//if ([[x syntax] isEqualToString:@"var"]) { [display appendString:[luaEncoding declareWithCommand:x]]; }
+	if ([[x syntax] isEqualToString:@"set"]) { [display appendString:[luaEncoding setVarWithCommand:x]]; }
+	if ([[x syntax] isEqualToString:@"get"]) { [display appendString:[luaEncoding getWithCommand:x]]; }
+	if ([[x syntax] isEqualToString:@"print"]) { [display appendString:[luaEncoding printWithCommand:x]]; }
+	if ([[x syntax] isEqualToString:@"callFunc"]) { [display appendString:[luaEncoding callWithCommand:x]];	}
+	if ([[x syntax] isEqualToString:@"return"]) { [display appendString:[luaEncoding returnWithCommand:x]];	}
 	return display;
 }
 

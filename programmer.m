@@ -11,6 +11,8 @@ James Hobson Copyright 2015
 #include <EncodingClasses/vbsEncoding.h>
 #include <EncodingClasses/pytwoEncoding.h>
 #include <EncodingClasses/pythreeEncoding.h>
+#include <EncodingClasses/luaEncoding.h>
+#include <EncodingClasses/cmdEncoding.h>
 
 @implementation programmer
 
@@ -434,7 +436,6 @@ if ([functionList containsObject:[newFunctionName stringValue]] ) { [command set
 			x++;
 			instructionNO++;
 		}
-		[display appendString:[PYEncoding endWithCommand:NULL]];
 	}
 	
 	else if ([instuctionToRemove intValue] == 4) {
@@ -447,28 +448,34 @@ if ([functionList containsObject:[newFunctionName stringValue]] ) { [command set
 			x++;
 			instructionNO++;
 		}
-		[display appendString:[PYEncoding endWithCommand:NULL]];
 	}
 	
-	else if ([instuctionToRemove intValue] == 4) {
-		[display setString:@"Copy and paste this into .cpp file\n\n"];
+	else if ([instuctionToRemove intValue] == 5) {
+		[display setString:@"Copy and paste this into .lua file\n\n"];
 		Command *current = [Command alloc];
-		[display appendString:[CPPEncoding setUpFile]];
-		[display appendString:[CPPEncoding functionWithArray:functions functionList:functionList]];
-		[display appendString:[CPPEncoding setUpMain]];
+		[display appendString:[luaEncoding functionWithArray:functions functionList:functionList]];
 		while (x != [instructionArray count]) {
 			current = [instructionArray objectAtIndex:x];
-			int indentZ = [current indent];
-			[current setIndent:indentZ+1];
-			[display appendString:[CPPEncoding checkType:current]];
+			[display appendString:[luaEncoding checkType:current]];
 			x++;
 			instructionNO++;
 		}
-		[display appendString:[CPPEncoding endWithCommand:NULL]];
+	}
+
+		else if ([instuctionToRemove intValue] == 6) {
+		[display setString:@"Copy and paste this into .bat file\n\n"];
+		Command *current = [Command alloc];
+		[display appendString:[cmdEncoding functionWithArray:functions functionList:functionList]];
+		while (x != [instructionArray count]) {
+			current = [instructionArray objectAtIndex:x];
+			[display appendString:[cmdEncoding checkType:current]];
+			x++;
+			instructionNO++;
+		}
 	}
 	
 	else {
-		[display setString:@"Select format!\n\nYour options are:\n	1: VBS\n	2: C++\n	3: Python 2.7\n	4: Python 3.4\n\n\n\nPlace your choice in Bottom right box"];
+		[display setString:@"Select format!\n\nYour options are:\n	1: VBS\n	2: C++\n	3: Python 2.7\n	4: Python 3.4\n	5: Lua\n	4: CMD (EXPERIMENTAL)\n\n\n\nPlace your choice in Bottom right box"];
 	}
 	//[self writeString:display toFile:@"hello.vbs"];
 	[command setSelectable:YES];
@@ -609,14 +616,5 @@ if ([functionList containsObject:[newFunctionName stringValue]] ) { [command set
 		x++;
 	}
 }
-/*
-- (void) writeString: (NSString *) string toFile: (NSString *) name {
-	NSString* filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-	NSString* fileName = name;
-	NSString* fileAtPath = [filePath stringByAppendingPathComponent:fileName];
-	[[NSFileManager defaultManager] createFileAtPath:fileAtPath contents:nil attributes:nil];
-	[[string dataUsingEncoding:NSUTF8StringEncoding] writeToFile:fileAtPath atomically:NO];
-	
-}
-*/
+
 @end

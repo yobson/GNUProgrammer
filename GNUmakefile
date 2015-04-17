@@ -9,16 +9,20 @@ EncodingClasses/cppEncoding.m \
 EncodingClasses/vbsEncoding.m \
 EncodingClasses/pytwoEncoding.m \
 EncodingClasses/pythreeEncoding.m \
+EncodingClasses/luaEncoding.m \
+EncodingClasses/cmdEncoding.m \
 command.m 
 
 
 programmer_HEADERS = \
 programmer.h \
-command.h \
 EncodingClasses/vbsEncoding.h \
 EncodingClasses/cppEncoding.h \
 EncodingClasses/pythreeEncoding.h \
-EncodingClasses/pytwoEncoding.h
+EncodingClasses/pytwoEncoding.h \
+EncodingClasses/luaEncoding.h \
+EncodingClasses/cmdEncoding.h \
+command.h
 
 
 programmer_RESOURCE_FILES = \

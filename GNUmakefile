@@ -8,6 +8,7 @@ programmer.m \
 EncodingClasses/cppEncoding.m \
 EncodingClasses/vbsEncoding.m \
 EncodingClasses/pytwoEncoding.m \
+EncodingClasses/pythreeEncoding.m \
 command.m 
 
 
@@ -16,6 +17,7 @@ programmer.h \
 command.h \
 EncodingClasses/vbsEncoding.h \
 EncodingClasses/cppEncoding.h \
+EncodingClasses/pythreeEncoding.h \
 EncodingClasses/pytwoEncoding.h
 
 

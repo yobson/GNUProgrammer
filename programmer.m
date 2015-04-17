@@ -10,6 +10,7 @@ James Hobson Copyright 2015
 #include <EncodingClasses/cppEncoding.h>
 #include <EncodingClasses/vbsEncoding.h>
 #include <EncodingClasses/pytwoEncoding.h>
+#include <EncodingClasses/pythreeEncoding.h>
 
 @implementation programmer
 
@@ -430,6 +431,19 @@ if ([functionList containsObject:[newFunctionName stringValue]] ) { [command set
 		while (x != [instructionArray count]) {
 			current = [instructionArray objectAtIndex:x];
 			[display appendString:[PYEncoding checkType:current]];
+			x++;
+			instructionNO++;
+		}
+		[display appendString:[PYEncoding endWithCommand:NULL]];
+	}
+	
+	else if ([instuctionToRemove intValue] == 4) {
+		[display setString:@"Copy and paste this into .py file\n\n"];
+		Command *current = [Command alloc];
+		[display appendString:[PY3Encoding functionWithArray:functions functionList:functionList]];
+		while (x != [instructionArray count]) {
+			current = [instructionArray objectAtIndex:x];
+			[display appendString:[PY3Encoding checkType:current]];
 			x++;
 			instructionNO++;
 		}

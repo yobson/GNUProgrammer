@@ -1,10 +1,8 @@
 #include <Foundation/Foundation.h>
 @class Command;
 
-@interface CPPEncoding : NSObject
+@interface PY3Encoding : NSObject
 
-+ (NSMutableString *) setUpFile;
-+ (NSMutableString *) setUpMain;
 + (NSMutableString *) indentCalculator: (Command *) x;
 + (NSMutableString *) endWithCommand: (Command *) x;
 + (NSMutableString *) loopWithCommand: (Command *) x;

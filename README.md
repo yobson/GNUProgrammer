@@ -25,7 +25,7 @@ Clang and is only tested on my windows machine and a raspberry pi.
 	 open in your favourite text editor the file InitHeaderSearch.cpp in that folder
 	 Look for the line that starts with “FIXME: temporary hack: hard-coded paths.” at about line 215 and add these lines:
 
-          ```c++
+          ```
           // FIXME: temporary hack: hard-coded paths.
           AddPath("C:\\GNUstep\\include", System, false);
           AddPath("C:\\GNUstep\\msys\\1.0\include", System, false);

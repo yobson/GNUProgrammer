@@ -65,7 +65,18 @@ James Hobson Copyright 2015
 	  if ([ifNEQ state]) { ifState = [[NSString alloc] initWithFormat:@"%@ != %@", [ifA stringValue], [ifB stringValue]]; }
 	  [x setCondition:ifState];
 	  [x setVbsCondition:vbifState];
-	  
+	  NSArray *split = [ifState componentsSeparatedByString:@" "];
+	  int z = 0;
+	  NSMutableString *temp = [[NSMutableString alloc] init];
+	  while (z != [split count]) {
+		  NSString *test = [split objectAtIndex:z];
+		  if (![varNames containsObject:test] && ![test isEqualToString:@"=="] && ![test isEqualToString:@">="] && ![test isEqualToString:@"<="] && ![test isEqualToString:@"!="] && ![test isEqualToString:@"<"] && ![test isEqualToString:@"<"]) {
+			  [temp appendString: [[NSString alloc] initWithFormat:@"\"%@\"", [split objectAtIndex:z]]];
+		  }
+		  else { [temp appendString:[split objectAtIndex:z]]; }
+		  z++;
+	  }
+	  [x setLuaCondition:temp];
 	  NSString *desc = [[NSString alloc] initWithFormat:@"IF: %@\n" ,ifState];
 	  [x setText:desc];
 	  
@@ -152,6 +163,20 @@ James Hobson Copyright 2015
 	  [x setVarName:[varManName stringValue]];
 	  [x setCondition:[varSetValue stringValue]];
 	  NSString *desc = [[NSString alloc] initWithFormat:@"Setting %@ = %@\n", [x varName], [x condition]];
+	  NSArray *split = [[x condition] componentsSeparatedByString:@" "];
+	  int z = 0;
+	  NSMutableString *cmdString = [[NSMutableString alloc] init];
+	  while (z != ([split count])) {
+		  if ([varNames containsObject:[split objectAtIndex:z]]) {
+			  NSString *temp = [[NSString alloc] initWithFormat:@"%%%@%%", [split objectAtIndex:z]];
+			  [cmdString appendString:temp];
+		  }
+		  else {
+			  [cmdString appendString:[split objectAtIndex:z]];
+		  }
+		  z++;
+	  }
+	  [x setCmdVarName:cmdString];
 	  [x setText:desc];
 	  
 	  [instructionArray addObject:x];
@@ -314,11 +339,14 @@ if ([functionList containsObject:[newFunctionName stringValue]] ) { [command set
 	NSString *desc;
 	if ([varNames containsObject:[printText stringValue]]) { 
 		[x setSubSyntax:[printText stringValue]];
+		NSString *subSyntax = [[NSString alloc] initWithFormat:@"%%%@%%", [printText stringValue]];
+		[x setCmdVarName:subSyntax];
 		desc = [[NSString alloc] initWithFormat:@"Printing variable:%@\n", [x subSyntax]];
 	}
 	if (![varNames containsObject:[printText stringValue]]) {
 		NSString *subSyntax = [[NSString alloc] initWithFormat:@"\"%@\"", [printText stringValue]];
 		[x setSubSyntax:subSyntax];
+		[x setCmdVarName:[printText stringValue]];
 		desc = [[NSString alloc] initWithFormat:@"Printing text:%@\n", [x subSyntax]];
 	}
 	[x setText:desc];
@@ -397,7 +425,7 @@ if ([functionList containsObject:[newFunctionName stringValue]] ) { [command set
 {
   	int instructionNO = 1;
 	int x = 0;
-	if ([instuctionToRemove intValue] == 1) {
+	if ([instuctionToRemove intValue] == 1) { //VBS
 		[display setString:@"Copy and paste this into .vbs file\n\n"];
 		Command *current = [Command alloc];
 		[display appendString:[VBSEncoding functionWithArray:functions functionList:functionList]];
@@ -408,7 +436,7 @@ if ([functionList containsObject:[newFunctionName stringValue]] ) { [command set
 			instructionNO++;
 		}
 	}
-	else if ([instuctionToRemove intValue] == 2) {
+	else if ([instuctionToRemove intValue] == 2) { //C++
 		[display setString:@"Copy and paste this into .cpp file\n\n"];
 		Command *current = [Command alloc];
 		[display appendString:[CPPEncoding setUpFile]];
@@ -426,7 +454,7 @@ if ([functionList containsObject:[newFunctionName stringValue]] ) { [command set
 		[display appendString:[CPPEncoding endWithCommand:NULL]];
 	}
 	
-	else if ([instuctionToRemove intValue] == 3) {
+	else if ([instuctionToRemove intValue] == 3) { //PY2.7
 		[display setString:@"Copy and paste this into .py file\n\n"];
 		Command *current = [Command alloc];
 		[display appendString:[PYEncoding functionWithArray:functions functionList:functionList]];
@@ -438,7 +466,7 @@ if ([functionList containsObject:[newFunctionName stringValue]] ) { [command set
 		}
 	}
 	
-	else if ([instuctionToRemove intValue] == 4) {
+	else if ([instuctionToRemove intValue] == 4) { //PY3.4
 		[display setString:@"Copy and paste this into .py file\n\n"];
 		Command *current = [Command alloc];
 		[display appendString:[PY3Encoding functionWithArray:functions functionList:functionList]];
@@ -450,7 +478,7 @@ if ([functionList containsObject:[newFunctionName stringValue]] ) { [command set
 		}
 	}
 	
-	else if ([instuctionToRemove intValue] == 5) {
+	else if ([instuctionToRemove intValue] == 5) { //LUA
 		[display setString:@"Copy and paste this into .lua file\n\n"];
 		Command *current = [Command alloc];
 		[display appendString:[luaEncoding functionWithArray:functions functionList:functionList]];
@@ -462,20 +490,22 @@ if ([functionList containsObject:[newFunctionName stringValue]] ) { [command set
 		}
 	}
 
-		else if ([instuctionToRemove intValue] == 6) {
+	else if ([instuctionToRemove intValue] == 6) { //CMD
 		[display setString:@"Copy and paste this into .bat file\n\n"];
 		Command *current = [Command alloc];
-		[display appendString:[cmdEncoding functionWithArray:functions functionList:functionList]];
+		[display appendString:[cmdEncoding setUp]];
 		while (x != [instructionArray count]) {
 			current = [instructionArray objectAtIndex:x];
 			[display appendString:[cmdEncoding checkType:current]];
 			x++;
 			instructionNO++;
 		}
+		[display appendString:[cmdEncoding setDown]];
+		[display appendString:[cmdEncoding functionWithArray:functions functionList:functionList]];
 	}
 	
 	else {
-		[display setString:@"Select format!\n\nYour options are:\n	1: VBS\n	2: C++\n	3: Python 2.7\n	4: Python 3.4\n	5: Lua\n	4: CMD (EXPERIMENTAL)\n\n\n\nPlace your choice in Bottom right box"];
+		[display setString:@"Select format!\n\nYour options are:\n	1: VBS\n	2: C++\n	3: Python 2.7\n	4: Python 3.4\n	5: Lua\n	6: CMD\n\n\n\nPlace your choice in Bottom right box"];
 	}
 	//[self writeString:display toFile:@"hello.vbs"];
 	[command setSelectable:YES];

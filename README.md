@@ -6,8 +6,10 @@ Clang and is only tested on my windows machine and a raspberry pi.
 
 ##Installation:
 #####Windows:
-  1. You need to go and download GNUstep Core, GNUstep System, GNUstep Developer, GNUstep Msys and python 2.7.
+  1. You need to go and download GNUstep Core, GNUstep Developer, GNUStep Cairo Backend, GNUstep Msys and python 2.7.
      You can find the GNUstep file from here : http://ftpmain.gnustep.org/pub/gnustep/binaries/windows/
+	 You MUST install GNUsetp Msys package first followed by Core. Then all other packages can be installed in any order.
+	 If you want to edit the UI, get gorm.
 
   2. Find you GNUstep installation (C:/GNUstep by default) then navigate to msys\1.0\etc and open 'profile' in a text editor.
      at the bottom of the file, add this line : `PATH=$PATH:/c/Python27`

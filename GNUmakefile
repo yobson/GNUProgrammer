@@ -1,8 +1,11 @@
 include $(GNUSTEP_MAKEFILES)/common.make
 
-APP_NAME = programmer
+PACKAGE_NAME=GNUProgrammer
+VERSION=0.1
 
-programmer_OBJC_FILES = \
+APP_NAME=GNUProgrammer
+
+GNUProgrammer_OBJC_FILES = \
 main.m \
 programmer.m \
 EncodingClasses/cppEncoding.m \
@@ -14,7 +17,7 @@ EncodingClasses/cmdEncoding.m \
 command.m 
 
 
-programmer_HEADERS = \
+GNUProgrammer_HEADERS = \
 programmer.h \
 EncodingClasses/vbsEncoding.h \
 EncodingClasses/cppEncoding.h \
@@ -25,10 +28,11 @@ EncodingClasses/cmdEncoding.h \
 command.h
 
 
-programmer_RESOURCE_FILES = \
+GNUProgrammer_RESOURCE_FILES = \
 gui.gorm
 
-programmer_MAIN_MODEL_FILE = \
+GNUProgrammer_MAIN_MODEL_FILE = \
 gui.gorm
 
 include $(GNUSTEP_MAKEFILES)/application.make
+include $(GNUSTEP_MAKEFILES)/Master/nsis.make

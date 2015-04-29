@@ -13,6 +13,8 @@
 @synthesize varName = _varName;
 @synthesize attribute = _attribute;
 @synthesize returnType = _returnType;
+@synthesize cmdVarName = _cmdVarName;
+@synthesize luaCondition = _luaCondition;
 
 
 @end

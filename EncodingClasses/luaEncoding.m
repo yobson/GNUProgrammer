@@ -26,7 +26,7 @@
 	NSMutableString *returnString = [[NSMutableString alloc] init];
 	[returnString appendString:[self indentCalculator:x]];
 	if ([[x subSyntax] isEqualToString:@"while"]) { [returnString appendString:[NSString stringWithFormat:@"while %@ then\n", [x condition]]]; }
-	if ([[x subSyntax] isEqualToString:@"if"]) { [returnString appendString:[NSString stringWithFormat:@"if %@ then\n", [x condition]]]; }
+	if ([[x subSyntax] isEqualToString:@"if"]) { [returnString appendString:[NSString stringWithFormat:@"if %@ then\n", [x luaCondition]]]; }
 	return returnString;
 }
 

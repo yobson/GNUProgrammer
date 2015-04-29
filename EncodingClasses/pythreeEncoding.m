@@ -95,11 +95,11 @@
 				[attributes appendString:[NSString stringWithFormat:@"%@,",[z varName]]];
 				y++;
 			}
-			[z setIndent:indentZ+1];
+			[z setIndent:indentZ];
 		}
 		if ([attributes length] > 0) { [attributes deleteCharactersInRange:NSMakeRange([attributes length]-1, 1)]; }
 		z = [currentInstructionArray lastObject];
-		[returnString appendString:[NSString stringWithFormat:@"def %@(%@)\n%@\n\n", [functionList objectAtIndex:x], attributes, build]];
+		[returnString appendString:[NSString stringWithFormat:@"def %@(%@):\n%@\n\n", [functionList objectAtIndex:x], attributes, build]];
 		y=0;
 		x++;
 	}

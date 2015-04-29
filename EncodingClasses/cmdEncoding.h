@@ -3,6 +3,8 @@
 
 @interface cmdEncoding : NSObject
 
++ (NSString *) setUp;
++ (NSString *) setDown;
 + (NSMutableString *) indentCalculator: (Command *) x;
 + (NSMutableString *) endWithCommand: (Command *) x;
 + (NSMutableString *) loopWithCommand: (Command *) x;
@@ -14,5 +16,6 @@
 + (NSMutableString *) functionWithArray: (NSMutableArray *) functions functionList: (NSMutableArray *) functionList;
 + (NSMutableString *) checkType: (Command *) x;
 + (NSMutableString *) returnWithCommand: (Command *) x;
++ (NSMutableString *) returnVoidWithCommand: (Command *) x;
 
 @end

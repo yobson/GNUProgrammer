@@ -3,7 +3,6 @@
 
 @interface VBSEncoding : NSObject
 
-+ (NSMutableString *) indentCalculator: (Command *) x;
 + (NSMutableString *) endWithCommand: (Command *) x;
 + (NSMutableString *) loopWithCommand: (Command *) x;
 + (NSMutableString *) declareWithCommand: (Command *) x;

@@ -10,9 +10,7 @@
 	NSString *_varName;
 	bool _attribute;
 	NSString *_returnType;
-	NSString *_vbsCondition;
 	NSString *_cmdVarName;
-	NSString *_luaCondition;
 }
 
 @property (copy) NSString *text; //What is Displayed
@@ -20,8 +18,6 @@
 @property (copy) NSString *subSyntax; //Sub type
 @property int indent; //indent
 @property (copy) NSString *condition;
-@property (copy) NSString *vbsCondition;
-@property (copy) NSString *luaCondition;
 @property (copy) NSString *cmdVarName;
 @property (copy) NSString *varName;
 @property (copy) NSString *returnType;

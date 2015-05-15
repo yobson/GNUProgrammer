@@ -54,29 +54,16 @@ James Hobson Copyright 2015
 	  indent++;
 	  
 	  //Deduces condition
-	  NSString *ifState;
-	  NSString *vbifState = [[NSString alloc] init];
-	  if ([ifEQ state] && !([ifLS state] || [ifGR state])) { ifState = [[NSString alloc] initWithFormat:@"%@ == %@", [ifA stringValue], [ifB stringValue]];
-														   vbifState = [[NSString alloc] initWithFormat:@"%@ = %@", [ifA stringValue], [ifB stringValue]];}
-	  if ([ifEQ state] && [ifGR state]) { ifState = [[NSString alloc] initWithFormat:@"%@ >= %@", [ifA stringValue], [ifB stringValue]]; vbifState = ifState; }
-	  if ([ifEQ state] && [ifLS state]) { ifState = [[NSString alloc] initWithFormat:@"%@ <= %@", [ifA stringValue], [ifB stringValue]]; vbifState = ifState;}
-	  if (![ifEQ state] && [ifGR state]) { ifState = [[NSString alloc] initWithFormat:@"%@ > %@", [ifA stringValue], [ifB stringValue]]; vbifState = ifState;}
-	  if (![ifEQ state] && [ifLS state]) { ifState = [[NSString alloc] initWithFormat:@"%@ < %@", [ifA stringValue], [ifB stringValue]]; vbifState = ifState;}
-	  if ([ifNEQ state]) { ifState = [[NSString alloc] initWithFormat:@"%@ != %@", [ifA stringValue], [ifB stringValue]]; }
+	  NSString *ifState = [[NSString alloc] init];
+	  
+	  if ([ifEQ state] && !([ifLS state] || [ifGR state])) { ifState = [[NSString alloc] initWithFormat:@"%@ == %@", [ifA stringValue], [ifB stringValue]];}
+	  if ( [ifEQ state] && [ifGR state]) { ifState = [NSString stringWithFormat:@"%@ >= %@", [ifA stringValue], [ifB stringValue]]; }
+	  if ( [ifEQ state] && [ifLS state]) { ifState = [NSString stringWithFormat:@"%@ <= %@", [ifA stringValue], [ifB stringValue]]; }
+	  if (![ifEQ state] && [ifGR state]) { ifState = [NSString stringWithFormat:@"%@ > %@",  [ifA stringValue], [ifB stringValue]]; }
+	  if (![ifEQ state] && [ifLS state]) { ifState = [NSString stringWithFormat:@"%@ < %@",  [ifA stringValue], [ifB stringValue]]; }
+	  if ([ifNEQ state]) { ifState = [NSString stringWithFormat:@"%@ != %@", [ifA stringValue], [ifB stringValue]]; }
+						   
 	  [x setCondition:ifState];
-	  [x setVbsCondition:vbifState];
-	  NSArray *split = [ifState componentsSeparatedByString:@" "];
-	  int z = 0;
-	  NSMutableString *temp = [[NSMutableString alloc] init];
-	  while (z != [split count]) {
-		  NSString *test = [split objectAtIndex:z];
-		  if (![varNames containsObject:test] && ![test isEqualToString:@"=="] && ![test isEqualToString:@">="] && ![test isEqualToString:@"<="] && ![test isEqualToString:@"!="] && ![test isEqualToString:@"<"] && ![test isEqualToString:@"<"]) {
-			  [temp appendString: [[NSString alloc] initWithFormat:@"\"%@\"", [split objectAtIndex:z]]];
-		  }
-		  else { [temp appendString:[split objectAtIndex:z]]; }
-		  z++;
-	  }
-	  [x setLuaCondition:temp];
 	  NSString *desc = [[NSString alloc] initWithFormat:@"IF: %@\n" ,ifState];
 	  [x setText:desc];
 	  
@@ -496,12 +483,12 @@ if ([functionList containsObject:[newFunctionName stringValue]] ) { [command set
 		[display appendString:[cmdEncoding setUp]];
 		while (x != [instructionArray count]) {
 			current = [instructionArray objectAtIndex:x];
-			[display appendString:[cmdEncoding checkType:current]];
+			[display appendString:[cmdEncoding checkType:current withVarArray:varNames]];
 			x++;
 			instructionNO++;
 		}
 		[display appendString:[cmdEncoding setDown]];
-		[display appendString:[cmdEncoding functionWithArray:functions functionList:functionList]];
+		[display appendString:[cmdEncoding functionWithArray:functions functionList:functionList withVarArray:varNames]];
 	}
 	
 	else {

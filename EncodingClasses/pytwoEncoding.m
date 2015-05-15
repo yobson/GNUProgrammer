@@ -1,30 +1,20 @@
 #include <Foundation/Foundation.h>
 #include "pytwoEncoding.h"
 #include "command.h"
+#include "utils.h"
 
 @implementation PYEncoding
 
-+ (NSMutableString *) indentCalculator: (Command *) x{
-	int indent = [x indent];
-	NSMutableString *string = [[NSMutableString alloc] init];
-	
-	while (indent != 0) {
-		[string appendString:@"   "];
-		indent--;
-	}
-	return string;
-}
-
 + (NSMutableString *) endWithCommand: (Command *) x {
 	NSMutableString *returnString = [[NSMutableString alloc] init];
-	[returnString appendString:[self indentCalculator:x]];
+	[returnString appendString:[utils indentCalculator:x]];
 	[returnString appendString:@"\n"];
 	return returnString;
 }
 
 + (NSMutableString *) loopWithCommand: (Command *) x {
 	NSMutableString *returnString = [[NSMutableString alloc] init];
-	[returnString appendString:[self indentCalculator:x]];
+	[returnString appendString:[utils indentCalculator:x]];
 	if ([[x subSyntax] isEqualToString:@"while"]) { [returnString appendString:[NSString stringWithFormat:@"while %@ :\n", [x condition]]]; }
 	if ([[x subSyntax] isEqualToString:@"if"]) { [returnString appendString:[NSString stringWithFormat:@"if %@ :\n", [x condition]]]; }
 	return returnString;
@@ -32,20 +22,20 @@
 
 + (NSMutableString *) declareWithCommand: (Command *) x {
 	NSMutableString *returnString = [[NSMutableString alloc] init];
-	[returnString appendString:[self indentCalculator:x]];
+	[returnString appendString:[utils indentCalculator:x]];
 	return returnString;
 }
 
 + (NSMutableString *) setVarWithCommand: (Command *) x {
 	NSMutableString *returnString = [[NSMutableString alloc] init];
-	[returnString appendString:[self indentCalculator:x]];
+	[returnString appendString:[utils indentCalculator:x]];
 	[returnString appendString:[NSString stringWithFormat:@"%@ = %@\n",[x varName], [x condition]]];
 	return returnString;
 }
 
 + (NSMutableString *) getWithCommand: (Command *) x {
 	NSMutableString *returnString = [[NSMutableString alloc] init];
-	[returnString appendString:[self indentCalculator:x]];
+	[returnString appendString:[utils indentCalculator:x]];
 	if (![[x subSyntax] isEqualToString:@"string"]) {
 		[returnString appendString:[NSString stringWithFormat:@"%@ = %@(raw_input())\n", [x varName], [x subSyntax]]];}
 	else { [returnString appendString:[NSString stringWithFormat:@"%@ = raw_input()\n", [x varName]]]; }
@@ -54,14 +44,14 @@
 
 + (NSMutableString *) printWithCommand: (Command *) x {
 	NSMutableString *returnString = [[NSMutableString alloc] init];
-	[returnString appendString:[self indentCalculator:x]];
+	[returnString appendString:[utils indentCalculator:x]];
 	[returnString appendString:[NSString stringWithFormat:@"print %@\n", [x subSyntax]]];
 	return returnString;
 }
 
 + (NSMutableString *) callWithCommand: (Command *) x {
 	NSMutableString *returnString = [[NSMutableString alloc] init];
-	[returnString appendString:[self indentCalculator:x]];
+	[returnString appendString:[utils indentCalculator:x]];
 	if (![[x subSyntax] isEqualToString:@"void"]) { [returnString appendString:[NSString stringWithFormat:@"%@ = ", [x varName]]]; }
 	[returnString appendString:[NSString stringWithFormat:@"%@ (%@)\n",[x condition],[x returnType]]];
 	return returnString;
@@ -69,7 +59,7 @@
 
 + (NSMutableString *) returnWithCommand: (Command *) x{
 	NSMutableString *returnString = [[NSMutableString alloc] init];
-	[returnString appendString:[self indentCalculator:x]];
+	[returnString appendString:[utils indentCalculator:x]];
 	[returnString appendString:[NSString stringWithFormat:@"return %@", [x varName]]];
 	return returnString;
 }

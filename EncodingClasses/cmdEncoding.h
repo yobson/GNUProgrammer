@@ -5,16 +5,14 @@
 
 + (NSString *) setUp;
 + (NSString *) setDown;
-+ (NSMutableString *) indentCalculator: (Command *) x;
 + (NSMutableString *) endWithCommand: (Command *) x;
-+ (NSMutableString *) loopWithCommand: (Command *) x;
-+ (NSMutableString *) declareWithCommand: (Command *) x;
++ (NSMutableString *) loopWithCommand: (Command *) x withVarArray: (NSMutableArray *) vars;
 + (NSMutableString *) setVarWithCommand: (Command *) x;
 + (NSMutableString *) getWithCommand: (Command *) x;
 + (NSMutableString *) printWithCommand: (Command *) x;
 + (NSMutableString *) callWithCommand: (Command *) x;
-+ (NSMutableString *) functionWithArray: (NSMutableArray *) functions functionList: (NSMutableArray *) functionList;
-+ (NSMutableString *) checkType: (Command *) x;
++ (NSMutableString *) functionWithArray: (NSMutableArray *) functions functionList: (NSMutableArray *) functionList withVarArray: (NSMutableArray *) vars;
++ (NSMutableString *) checkType: (Command *) x withVarArray:(NSMutableArray *) vars;
 + (NSMutableString *) returnWithCommand: (Command *) x;
 + (NSMutableString *) returnVoidWithCommand: (Command *) x;
 

@@ -14,6 +14,7 @@ EncodingClasses/pytwoEncoding.m \
 EncodingClasses/pythreeEncoding.m \
 EncodingClasses/luaEncoding.m \
 EncodingClasses/cmdEncoding.m \
+EncodingClasses/utils.m \
 command.m 
 
 
@@ -25,6 +26,7 @@ EncodingClasses/pythreeEncoding.h \
 EncodingClasses/pytwoEncoding.h \
 EncodingClasses/luaEncoding.h \
 EncodingClasses/cmdEncoding.h \
+EncodingClasses/utils.h \
 command.h
 
 
